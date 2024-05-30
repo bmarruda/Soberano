@@ -1,15 +1,15 @@
-var empresaModel = require("../models/empresaModel");
+var jogadorModel = require("../models/empresaModel");
 
-function buscarPorCnpj(req, res) {
-  var cnpj = req.query.cnpj;
+function buscarPornomeJogador(req, res) {
+  var nomeJogador = req.query.nomeJogador;
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
+  jogadorModel.buscarPornomeJogador(nomeJogador).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
 
 function listar(req, res) {
-  empresaModel.listar().then((resultado) => {
+  jogadorModel.listar().then((resultado) => {
     res.status(200).json(resultado);
   });
 }
@@ -17,22 +17,22 @@ function listar(req, res) {
 function buscarPorId(req, res) {
   var id = req.params.id;
 
-  empresaModel.buscarPorId(id).then((resultado) => {
+  jogadorModel.buscarPorId(id).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
 
 function cadastrar(req, res) {
-  var cnpj = req.body.cnpj;
-  var razaoSocial = req.body.razaoSocial;
+  var nomeJogador = req.body.nomeJogador;
+  var posicao = req.body.posicao;
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
+  jogadorModel.buscarPornomeJogador(nomeJogador).then((resultado) => {
     if (resultado.length > 0) {
       res
         .status(401)
-        .json({ mensagem: `a empresa com o cnpj ${cnpj} já existe` });
+        .json({ mensagem: `a empresa com o nomeJogador ${nomeJogador} já existe` });
     } else {
-      empresaModel.cadastrar(razaoSocial, cnpj).then((resultado) => {
+      jogadorModel.cadastrar(posicao, nomeJogador).then((resultado) => {
         res.status(201).json(resultado);
       });
     }
@@ -40,7 +40,7 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-  buscarPorCnpj,
+  buscarPornomeJogador,
   buscarPorId,
   cadastrar,
   listar,

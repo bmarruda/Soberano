@@ -142,7 +142,7 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        jogadorerver: jogadorVar
+        jogadorServer: jogadorVar
       }),
     })
       .then(function (resposta) {
@@ -178,8 +178,8 @@
     })
       .then(function (resposta) {
         resposta.json().then((jogador) => {
-          jogador.forEach((empresa) => {
-            listaJogador.innerHTML += `<option value='${empresa.id}'>${empresa.cnpj}</option>`;
+          jogador.forEach((jogador) => {
+            listaJogador.innerHTML += `<option value='${jogador.id}'>${jogador.nomeJogador}</option>`;
           });
         });
       })

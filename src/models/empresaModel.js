@@ -1,27 +1,27 @@
 var database = require("../database/config");
 
-function buscarPorId(id) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE id = '${id}'`;
+function buscarPorId(idJogador) {
+  var instrucaoSql = `SELECT * FROM jogador WHERE id = '${idJogador}'`;
 
   return database.executar(instrucaoSql);
 }
 
 function listar() {
-  var instrucaoSql = `SELECT * FROM empresa`;
+  var instrucaoSql = `SELECT * FROM jogador`;
 
   return database.executar(instrucaoSql);
 }
 
-function buscarPorCnpj(cnpj) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
+function buscarPornomeJogador(nomeJogador) {
+  var instrucaoSql = `SELECT * FROM jogador WHERE nomeJogador = '${nomeJogador}'`;
 
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(razaoSocial, cnpj) {
-  var instrucaoSql = `INSERT INTO empresa (razao_social, cnpj) VALUES ('${razaoSocial}', '${cnpj}')`;
+function cadastrar(posicao, nomeJogador) {
+  var instrucaoSql = `INSERT INTO jogador (posicao, nomeJogador) VALUES ('${posicao}', '${nomeJogador}')`;
 
   return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar };
+module.exports = { buscarPornomeJogador, buscarPorId, cadastrar, listar };
