@@ -62,4 +62,3 @@ insert into jogador (nomeJogador, posicao)values
 ('Juan',  'Atacante'),
 ('William Gomes',  'Atacante');
 
- select * from usuario join jogador on idJogador = fkjogador; 

@@ -173,12 +173,12 @@
   }
 
   function listar() {
-    fetch("/jogador/listar", {
+    fetch("/empresas/listar", {
       method: "GET",
     })
       .then(function (resposta) {
-        resposta.json().then((jogador) => {
-          jogador.forEach((jogador) => {
+        resposta.json().then((empresas) => {
+          empresas.forEach((jogador) => {
             listaJogador.innerHTML += `<option value='${jogador.id}'>${jogador.nomeJogador}</option>`;
           });
         });

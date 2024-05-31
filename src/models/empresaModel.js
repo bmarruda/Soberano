@@ -19,7 +19,7 @@ function buscarPornomeJogador(nomeJogador) {
 }
 
 function cadastrar(posicao, nomeJogador) {
-  var instrucaoSql = `INSERT INTO jogador (posicao, nomeJogador) VALUES ('${posicao}', '${nomeJogador}')`;
+  var instrucaoSql = `INSERT INTO jogador (nomeJogador, posicao ) VALUES ('${nomeJogador}','${posicao}' )`;
 
   return database.executar(instrucaoSql);
 }
