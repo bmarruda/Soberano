@@ -14,7 +14,6 @@ USE soberano;
 CREATE TABLE jogador (
 	idJogador INT PRIMARY KEY AUTO_INCREMENT,
 	nomeJogador VARCHAR(50),
-	camisa int,
 	posicao varchar(20)
 );
 
@@ -29,7 +28,7 @@ CREATE TABLE usuario (
 
 insert into jogador (nomeJogador, posicao)values
 ('Rafael','Goleiro'),
-('Jnadrei','Goleiro'),
+('Janadrei','Goleiro'),
 ('Arboleda','Zageiro'),
 ('Diego Costa','Zageiro'),
 ('Alan Franco','Zageiro'),
@@ -47,14 +46,15 @@ insert into jogador (nomeJogador, posicao)values
 ('G.Gallopo',  'Meio-Campista'),
 ('Luiz Gustavo',  'Meio-Campista'),
 ('Rodriguinho',  'Meio-Campista'),
-('F.Nefrucci',  'Meio-Campista'),
+('F.Nefrucci', 'Meio-Campista'),
 ('J.Callri', 'Atacante'),
-('Luciano Neves', 'Atacante'),
-('Wellington Rato',  'Atacante'),
+('Luciano Neves','Atacante'),
+('Wellington Rato', 'Atacante'),
 ('Lucas Moura', 'Atacante'),
-('Ferreira',  'Atacante'),
-('André Silva',  'Atacante'),
-('Erick',  'Atacante'),
-('Juan',  'Atacante'),
-('William Gomes',  'Atacante');
+('Ferreira', 'Atacante'),
+('André Silva','Atacante'),
+('Erick', 'Atacante'),
+('Juan', 'Atacante'),
+('William Gomes', 'Atacante');
 
+select * from usuario;
