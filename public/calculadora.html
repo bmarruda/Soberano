@@ -26,7 +26,7 @@
                 <li>
                     <a href="index.html">Home</a>
                 </li>
-              
+
                 <li class="agora">
                     <a href="#">Calculadora</a>
                 </li>
@@ -37,7 +37,7 @@
                 <li>
                     <a href="cadastro.html">Cadastro</a>
                 </li>
-               
+
             </ul>
         </div>
     </div>
@@ -57,24 +57,34 @@
                     Para cada Empate são +1 <br>
                     Nas derrotas são 0 pontos
                 </p>
+                
+                <div id="div_resposta" style="background-color: #CB0017 ; border-radius: 5px;"></div>
             </div>
-            <div class="caixa">
+
+            <div class="caixa" style="display: block;" id="divCamp">
                 <h2>Calculadora de Pontos</h2>
-                <p>Campeonato</p>
+                Campeonato:
 
                 <select name="" id="select_camp" class="select">
                     <option value="#">Selecione o Campeonato</option>
                     <option value="Paulista">Paulistão</option>
-                    <option value="BR">Brasileirão</option>
-                    <option value="copa">Copa do Brasil</option>
+                    <option value="Brasileirão">Brasileirão</option>
+                    <option value="CDB">Copa do Brasil</option>
                     <option value="liberta">Libertadores</option>
-                    <option value="sula">Sul Americana</option>
+                    <option value="sula">Sul-Americana</option>
                 </select>
+                <br>
 
-                <p>Quantas partidas deseja Calcular?</p>
+                Pontos atuais: <br>
+                <input type="number" id="in_pontos" class="input">
+                <br>
+                Quantas partidas deseja Calcular? 
+                <br>
                 <input type="number" id="in_partida" class="input">
                 <br>
+
                 <button onclick="calcular()" class="button">Calcular</button>
+                
 
             </div>
         </div>
@@ -87,13 +97,13 @@
         <div id="footer" class="footer">
             <div class="rectangle1">
                 <img id="soberano" class="soberano" src="assets/icon/brasao_spfc.png">
-            </div> 
+            </div>
             <div class="rectangle2"></div>
             <div class="rectangle3"></div>
 
 
         </div>
-  
+
     </footer>
     <!--footer fim-->
 
@@ -101,3 +111,27 @@
 </body>
 
 </html>
+<script>
+    function calcular() {
+        var partidas = Number(in_partida.value);
+        var camp = select_camp.value;
+        var pontos =Number(in_pontos.value);
+
+        if (camp == '#' || partidas <= 0 || pontos <= 0 ) {
+           alert('Dados invalidos')
+
+        } else {
+            var resultado = partidas * 3;
+            var total = resultado + pontos
+            div_resposta.innerHTML =` <b> Caso o Tricolor Paulista vença todas as ${partidas} paritidas <br>
+            ele ganhara ${resultado} no/a ${camp} <br>
+            e tera o total de ${total} pontos </b>` 
+
+        }
+    }
+
+    function voltar() {
+        divCamp.style.display = "none";
+        divCalculo.style.display = "block";
+    }
+</script>

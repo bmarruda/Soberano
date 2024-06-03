@@ -96,7 +96,7 @@ body {
 
 .select option {
     background-color: #cb0018ba;
-    color: black;
+    color: rgb(250, 246, 246);
     border-radius: 50vh;
 }
 
@@ -106,8 +106,8 @@ body {
 }
 
 .input {
-    width: 70%;
-    height: 30px;
+    width: 50%;
+    height: 10px;
     background-color: #cb0018ba;
     border: 4px solid #CB0017;
     border-radius: 50px;
