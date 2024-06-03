@@ -177,9 +177,9 @@
       method: "GET",
     })
       .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((jogador) => {
-            listaJogador.innerHTML += `<option value='${jogador.id}'>${jogador.nomeJogador}</option>`;
+        resposta.json().then((jogador) => {
+          jogador.forEach((jogador) => {
+            listaJogador.innerHTML += `<option value='${jogador.idJogador}'>${jogador.nomeJogador}</option>`;
           });
         });
       })
