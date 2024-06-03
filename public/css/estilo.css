@@ -376,6 +376,31 @@ input {
   animation-iteration-count: infinite;
 }
 
+.father-right{
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: end;
+}
+
+.card-right{
+  width: 80%;
+}
+
+.text-titulo{
+  width: 100%;
+  text-align: center;
+}
+
+.texto{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
 @keyframes bell {
   0%   {transform: rotate(25deg)}
   25%  {transform: rotate(-25deg)}
