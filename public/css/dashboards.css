@@ -166,26 +166,6 @@ body {
   font-weight: 800;
 }
 
-.perigo-frio {
-  background-color: #5c6bc0;
-}
-
-.perigo-quente {
-  background-color: #ff7043;
-}
-
-.alerta-frio {
-  background-color: #42a5f5;
-}
-
-.alerta-quente {
-  background-color: #ffee58;
-}
-
-.ideal {
-  background-color: #9ccc65;
-}
-
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -420,6 +400,7 @@ canvas {
 
 .graph {
     background: #000;
+    color: #ffffff;
 }
 
 .btn-nav h3,

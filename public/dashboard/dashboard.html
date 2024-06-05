@@ -70,6 +70,7 @@
             <div id="alerta"></div>
             <div class="graficos">
                 <div class="graph">
+                    <h2>Queridinhos dos Usuarios</h2>
                     <canvas id="myChart" class="graph"></canvas>
                 </div>
             </div>
@@ -126,9 +127,11 @@
             data: {
                 labels: label,
                 datasets: [{
-                    label: 'Jogadores Favoritos',
+                    label: ' Quantidade de pessoas',
                     data: dados,
-                    borderWidth: 1
+                    backgroundColor: '#CB0017',
+                    borderColor: '#ffffff',
+                    borderWidth: 2
                 }]
             },
             options: {
