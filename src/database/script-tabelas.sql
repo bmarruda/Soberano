@@ -1,11 +1,3 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
-
-/*
-comandos para mysql server
-*/
-
 CREATE DATABASE soberano;
 
 USE soberano;
@@ -58,3 +50,8 @@ insert into jogador (nomeJogador, posicao)values
 ('William Gomes', 'Atacante');
 
 select * from usuario;
+
+SELECT jogador.nomeJogador, COUNT(usuario.id) AS quantidade
+    FROM usuario
+    JOIN jogador ON usuario.fkjogador = jogador.idJogador
+    GROUP BY jogador.nomeJogador;
