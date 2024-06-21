@@ -1,3 +1,7 @@
+/*
+comandos para mysql server
+*/
+
 CREATE DATABASE soberano;
 
 USE soberano;
@@ -17,7 +21,14 @@ CREATE TABLE usuario (
 	fkjogador INT,
 	FOREIGN KEY (fkjogador) REFERENCES jogador(idJogador)
 );
-
+-- Mais uma tabela adicionada 
+Create Table respostas(
+    idResp INT PRIMARY KEY auto_increment,
+    acertos INT,
+    fkusuario INT,
+    constraint fkusuario foreign key (fkusuario)		
+	references usuario(id)
+    );
 insert into jogador (nomeJogador, posicao)values
 ('Rafael','Goleiro'),
 ('Janadrei','Goleiro'),
@@ -30,16 +41,16 @@ insert into jogador (nomeJogador, posicao)values
 ('Igor Vinícius','Lateral'),
 ('Patryck','Lateral'),
 ('João Moreira','Lateral'),
-('Alisson', 'Meio-Campista'),
+('Alisson','Meio-Campista'),
 ('Pablo Maia','Meio-Campista'),
 ('Rodrigo Nestor','Meio-Campista'),
-('M.Arujo', 'Meio-Campista'),
-('Bobadilla',  'Meio-Campista'),
-('G.Gallopo',  'Meio-Campista'),
-('Luiz Gustavo',  'Meio-Campista'),
-('Rodriguinho',  'Meio-Campista'),
-('F.Nefrucci', 'Meio-Campista'),
-('J.Callri', 'Atacante'),
+('M.Arujo','Meio-Campista'),
+('Bobadilla','Meio-Campista'),
+('G.Gallopo','Meio-Campista'),
+('Luiz Gustavo', 'Meio-Campista'),
+('Rodriguinho', 'Meio-Campista'),
+('F.Nefrucci','Meio-Campista'),
+('J.Callri','Atacante'),
 ('Luciano Neves','Atacante'),
 ('Wellington Rato', 'Atacante'),
 ('Lucas Moura', 'Atacante'),
@@ -51,7 +62,27 @@ insert into jogador (nomeJogador, posicao)values
 
 select * from usuario;
 
-SELECT jogador.nomeJogador, COUNT(usuario.id) AS quantidade
-    FROM usuario
-    JOIN jogador ON usuario.fkjogador = jogador.idJogador
-    GROUP BY jogador.nomeJogador;
+-- Select da porcentagem de cada posição
+SELECT j.posicao, COUNT(u.id) AS num_usuarios, 
+(COUNT(u.id) / total.total_usuarios) * 100 AS porcentagem_usuarios
+FROM jogador j
+LEFT JOIN usuario u ON j.idJogador = u.fkjogador
+JOIN (SELECT COUNT(*) AS total_usuarios FROM usuario) total
+GROUP BY j.posicao, total.total_usuarios
+ORDER BY porcentagem_usuarios DESC;
+
+
+-- Select Ranking dos jogadores
+SELECT j.nomeJogador, j.posicao,COUNT(u.id) AS num_usuarios
+FROM jogador j
+LEFT JOIN usuario u ON j.idJogador = u.fkjogador
+GROUP BY j.idJogador, j.nomeJogador, j.posicao
+ORDER BY  num_usuarios DESC;
+ 
+-- Select do Grafico de respostas 
+
+SELECT acertos, COUNT(DISTINCT(fkusuario)) AS quantidade_usuarios
+FROM respostas
+WHERE acertos IN (0, 1, 2, 3, 4)
+GROUP BY acertos;
+
