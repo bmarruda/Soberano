@@ -83,6 +83,6 @@ ORDER BY  num_usuarios DESC;
 
 SELECT acertos, COUNT(DISTINCT(fkusuario)) AS quantidade_usuarios
 FROM respostas
-WHERE acertos IN (0, 1, 2, 3, 4)
+WHERE acertos IN (0, 1, 2, 3, 4, 5)
 GROUP BY acertos;
 
