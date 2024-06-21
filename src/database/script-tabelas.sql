@@ -21,7 +21,7 @@ CREATE TABLE usuario (
 	fkjogador INT,
 	FOREIGN KEY (fkjogador) REFERENCES jogador(idJogador)
 );
--- Mais uma tabela adicionada 
+-- Mais uma tabela adicionada 19/06
 Create Table respostas(
     idResp INT PRIMARY KEY auto_increment,
     acertos INT,
@@ -29,6 +29,7 @@ Create Table respostas(
     constraint fkusuario foreign key (fkusuario)		
 	references usuario(id)
     );
+
 insert into jogador (nomeJogador, posicao)values
 ('Rafael','Goleiro'),
 ('Janadrei','Goleiro'),
@@ -61,6 +62,8 @@ insert into jogador (nomeJogador, posicao)values
 ('William Gomes', 'Atacante');
 
 select * from usuario;
+
+-- alterações feitas no dia 20/06
 
 -- Select da porcentagem de cada posição
 SELECT j.posicao, COUNT(u.id) AS num_usuarios, 
