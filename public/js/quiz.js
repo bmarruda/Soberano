@@ -1,4 +1,5 @@
 // Array de objetos contendo as perguntas, opções e respostas corretas do quiz
+// feito no dia 21/06
 const data = [
     {
         question: "Em que anos o São Paulo tanto conquistou a libertadores como o mundial de clubes? ",
