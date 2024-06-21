@@ -1,3 +1,4 @@
+// Array de objetos contendo as perguntas, opções e respostas corretas do quiz
 const data = [
     {
         question: "Em que anos o São Paulo tanto conquistou a libertadores como o mundial de clubes? ",
@@ -48,6 +49,7 @@ const data = [
 
 ]
 
+// Seleciona os elementos do DOM necessários para manipular o quiz
 const quiz = document.getElementById("quiz")
 const answerEls = document.querySelectorAll(".answer")
 const questionEl = document.getElementById("question")
@@ -59,16 +61,19 @@ const optionD = document.getElementById("optionD")
 
 const submitBtn = document.getElementById("botaoQuiz")
 
+// Variáveis para controlar o estado atual do quiz
 let currentQuiz = 0
 let score = 0
 
+// Carrega a pergunta e opções atuais no quiz
 loadQuiz()
 
 function loadQuiz() {
-    deselectAnswer()
+    deselectAnswer() // Desmarca qualquer resposta selecionada
 
-    const currentQuizData = data[currentQuiz]
+    const currentQuizData = data[currentQuiz] // Obtém os dados da pergunta atual
 
+     // Atualiza o texto das perguntas e opções no DOM
     questionEl.innerText = currentQuizData.question
     optionA.innerText = currentQuizData.a
     optionB.innerText = currentQuizData.b
@@ -80,6 +85,7 @@ function loadQuiz() {
 
 }
 
+// Função para desmarcar as respostas selecionadas
 function deselectAnswer() {
     answerEls.forEach((answerEl) => (answerEl.checked = false
     )
@@ -87,34 +93,39 @@ function deselectAnswer() {
 
 }
 
+
+// Função para obter a resposta selecionada pelo usuário
 function getSelected(){
     let answer
 
     answerEls.forEach((answerEl) => {
         if(answerEl.checked){
-            answer = answerEl.id
+            answer = answerEl.id  // Define a resposta selecionada
         }
     })
 
-    return answer
+    return answer // Retorna a resposta selecionada
 }
 
+// Adiciona um evento de clique ao botão de enviar resposta
 submitBtn.addEventListener("click", () =>{
-    const answer = getSelected()
+    const answer = getSelected() // Obtém a resposta selecionada
 
 if(answer){
+    // Verifica se a resposta está correta
     if(answer === data[currentQuiz].correct)
-    score++
+    score++ // Incrementa a pontuação
 }
-currentQuiz++
+currentQuiz++ // Passa para a próxima pergunta
 
 if(currentQuiz < data.length){
-    loadQuiz()
+    loadQuiz()  // Carrega a próxima pergunta
 }
 else{
-
+    // Obtém o ID do usuário do sessionStorage
     let id_usuario = sessionStorage.getItem("ID_USUARIO");
-
+    
+    // Envia os resultados do quiz para o servidor
     fetch("/medidas/quiz", {
      method: "POST",
      headers: {
@@ -123,13 +134,15 @@ else{
      body: JSON.stringify({
        // crie um atributo que recebe o valor recuperado aqui
        // Agora vá para o arquivo routes/usuario.js
-       idUsuario: id_usuario,
-        acertos: score
+       idUsuario: id_usuario, // Atributo ID do usuário
+        acertos: score // Atributo acertos com a pontuação do quiz
  
        
      })
    })
    console.log("aaaa")
+
+    // Exibe a pontuação final e um botão para reiniciar o quiz
     quiz.innerHTML = `<h2>Você acertou ${score}/${data.length} questões!</h2>
     <button style=" display: inline-block;
     background: #ecc998;
