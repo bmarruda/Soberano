@@ -123,7 +123,9 @@ body {
   background-color: #161618;
   height: 100vh;
   overflow: auto;
+  display: block;
 }
+
 
 .area-parametros-alerta {
   /* border: 2px solid pink; */
