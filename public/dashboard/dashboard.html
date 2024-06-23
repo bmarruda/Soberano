@@ -85,16 +85,16 @@
                 <div id="alerta"></div>
                 <div class="graficos">
                     <div class="graph">
-                        <h2>Queridinhos dos Usuarios</h2>
-                        <canvas id="myChart" class="graph"></canvas>
+                        <h2>Posições Mais escolhidas </h2>
+                        <canvas id="YourChart" class="graph"></canvas>
                     </div>
             </div>
 
             <div id="alerta"></div>
             <div class="graficos">
                 <div class="graph">
-                    <h2>Queridinhos dos Usuarios</h2>
-                    <canvas id="myChart" class="graph"></canvas>
+                    <h2>Pontos</h2>
+                    <canvas id="scoreChart" class="graph"></canvas>
                 </div>
         </div>
     </div>
@@ -164,6 +164,74 @@
         });
 
     }
+
+//  grafico que vai mostrar os pontos feitos pelos usuarios 23/06
+    function plotarGrafico2(resposta) {
+
+console.log('iniciando plotagem do gráfico...');
+
+// Criando estrutura para plotar gráfico - labels
+let labels = [0, 1, 2, 3, 4, 5];
+
+let dados = {
+    labels: labels,
+    datasets: [{
+        label: ' acertos',
+        data: [],
+        backgroundColor: 'purple',
+        borderColor: 'purple',
+        fill: false,
+
+        tension: 0.1
+    }]
+
+};
+
+
+console.log('----------------------------------------------')
+console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+console.log(resposta)
+
+// Inserindo valores recebidos em estrutura para plotar o gráfico
+for (i = 0; i < labels.length; i++) {
+
+    var label = labels[i];
+    var acerto_existe = false;
+    for (j = 0; j < resposta.length; j++) {
+        var registro = resposta[j]
+        if (registro.acertos == label) {
+            dados.datasets[0].data.push(registro.quantidade_usuarios)
+            acerto_existe = true
+        }
+    }
+    if (acerto_existe == false) {
+        dados.datasets[0].data.push(0)
+    }
+    // labels.push(registro.acertos);
+
+}
+
+
+console.log('----------------------------------------------')
+console.log('O gráfico será plotado com os respectivos valores:')
+console.log('Labels:')
+console.log(labels)
+console.log('Dados:')
+console.log(dados.datasets)
+console.log('----------------------------------------------')
+
+// Criando estrutura para plotar gráfico - config
+const config = {
+    type: 'bar',
+    data: dados,
+};
+
+// Adicionando gráfico criado em div na tela
+let scoreChart = new Chart(
+    document.getElementById(`scoreChart`),
+    config
+);
+}
 
 
 </script>

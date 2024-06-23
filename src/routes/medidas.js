@@ -19,4 +19,9 @@ router.get("/escolhas-jogadores/", function (req, res) {
     medidaController.buscarEscolhasDosJogadores(req, res);
 });
 
+// rota do quiz 23/06
+router.post("/quiz/", function (req, res) {
+    medidaController.enviarQuiz(req, res);
+})
+
 module.exports = router;
