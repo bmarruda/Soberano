@@ -43,7 +43,7 @@ function enviarQuiz(idUsuario, acertos) {
     return database.executar(instrucaoSql);
 }
 // Função para consultar o ranking via novo select adcionado ao banco de dados (27/06)
-function buscarPosition() {
+function buscarPosiçao() {
 
     var instrucaoSql = ` SELECT u.nome, r.acertos
 FROM respostas r
@@ -59,5 +59,5 @@ module.exports = {
     enviarJogador,
     buscarEscolhasDosJogadores,
     enviarQuiz,
-    buscarPosition
+    buscarPosiçao
 };
