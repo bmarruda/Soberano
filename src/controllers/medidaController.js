@@ -82,6 +82,28 @@ function enviarQuiz(req, res) {
             res.status(500).json(erro.sqlMessage);
         }
     );
+} 
+// function que puxa os dados referentes ao runking  (28/06)
+function buscarPosiçao(req,res){
+    console.log(`Recuperando medidas em tempo real`);
+
+medidaModel.buscarPosiçao().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            res.json({
+                nome: resultado[0].nome
+        
+            });
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+
+
 }
 
 module.exports = {
@@ -89,5 +111,6 @@ module.exports = {
     buscarMedidasEmTempoReal,
     buscarEscolhasDosJogadores,
     enviarJogador,
-    enviarQuiz 
+    enviarQuiz,
+    buscarPosiçao 
 };
