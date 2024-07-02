@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <link rel="shortcut icon" href="/assets/icon/brasao_spfc.ico">
     <meta charset="UTF-8">
@@ -14,60 +13,66 @@
     <link rel="stylesheet" href="./../css/cards.css" />
     <link rel="stylesheet" href="/css/ranking.css">
     
-   
-
     <script src="../js/sessao.js"></script>
     <script src="../js/alerta.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Quiz Ranking</title>
-            <link rel="stylesheet" href="rankdash.css">
-        </head>
+</head>
+<body onload="buscarRanking()">
+    
+    <div class="ranking">
+        <h1>Ranking dos Jogadores</h1>
+        <!-- Posicionamentos do ranking -->
+        <div id="first" class="position">1º Lugar: <span id="first_name" class="name">Nome 1</span></div>
+        <div id="second" class="position">2º Lugar: <span class="name">Nome 2</span></div>
+        <div id="third" class="position">3º Lugar: <span class="name">Nome 3</span></div>
+    </div>
+   
+</body>
+</html>
 
-        <body>
-            <div id="quiz-container">
-                <h1>Ranking dos Jogadores</h1>
-                <div id="ranking">
-                    <div class="player" id="first-place">
-                        <h2>1º Lugar</h2>
-                        <p id="first-player-name"></p>
-                        <p id="first-player-score"></p>
-                    </div>
-                    <div class="player" id="second-place">
-                        <h2>2º Lugar</h2>
-                        <p id="second-player-name"></p>
-                        <p id="second-player-score"></p>
-                    </div>
-                    <div class="player" id="third-place">
-                        <h2>3º Lugar</h2>
-                        <p id="third-player-name"></p>
-                        <p id="third-player-score"></p>
-                    </div>
-                </div>
-            </div>
+ <script>
+    // Variáveis para armazenar as posições  (28/06)
+    var Fposition;
+    var Sposition;
+    var Tposition;
+    var response;
 
-            <!--footer inicio-->
-            <footer>
-                <div id="footer" class="footer">
-                    <div class="rectangle1"> 
-                    </div> 
+    // Função chamada quando a página carrega  (28/06)
+    function buscarRanking(){
+        // Fazendo uma requisição GET para buscar as posições do ranking  (28/06)
+        fetch("/medidas/posicao", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            // Se a resposta for bem sucedida  (28/06)
+            if (resposta.ok) {
+                // Converte a resposta em JSON  (28/06)
+                resposta.json().then(json => {
+                    response = json;
+                    console.log(json);
                     
-                    <div class="rectangle2"> <a href="dashboard.html"><img id="soberano" class="soberano" src="/assets/icon/brasao_spfc.png"></a></div>
-                    <div class="rectangle3"></div> 
-                       
-                     
-                </div>
-            </footer>
-     <!--footer final-->
-        
-            <script src="script.js"></script>
-        </body>
-        </html>
+                    document.getElementById("first_name").innerHTML = json[0].nome;
+                
+                });
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+</script>
+
+
+
+
         

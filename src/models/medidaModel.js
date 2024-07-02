@@ -10,15 +10,6 @@ function buscarUltimasMedidas() {
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal() {
-    var instrucaoSql = `SELECT jogador.nomeJogador, COUNT(usuario.id) AS quantidade
-    FROM usuario
-    JOIN jogador ON usuario.fkjogador = jogador.idJogador
-    GROUP BY jogador.nomeJogador`;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
 function enviarJogador(id, fkJogador) {
     var instrucaoSql = `INSERT INTO usuario (id, fkjogador) VALUES (${id}, ${fkJogador})`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -36,28 +27,34 @@ function buscarEscolhasDosJogadores() {
 }
 
 // Essa função insere um novo registro na tabela respostas (27/06)
-function enviarQuiz(idUsuario, acertos) {
+function enviarQuiz(id, acertos) {
     var instrucaoSql = `INSERT INTO respostas (fkusuario,acertos) VALUES
-    (${idUsuario},${acertos})`
+    (${id},${acertos})`
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-// Função para consultar o ranking via novo select adcionado ao banco de dados (27/06)
-function buscarPosiçao() {
 
-    var instrucaoSql = ` SELECT u.nome, r.acertos
-FROM respostas r
-JOIN usuario u ON r.fkusuario = u.idusuario
-ORDER BY r.acertos DESC
-LIMIT 3;`
-    console.log("Executando a dashboard de ranking: \n" + instrucaoSql);
+
+// Criei essa função para consultar o ranking via novo select adcionado ao banco de dados (27/06)
+
+
+function buscarPosicao() {
+    // Define uma variável chamada 'instrucaoSql' que armazena a instrução SQL para selecionar os dados desejados.(27/06)
+    var instrucaoSql = `
+        SELECT u.nome, r.acertos
+        FROM respostas r
+        JOIN usuario u ON r.fkusuario = u.id
+        ORDER BY r.acertos DESC
+        LIMIT 3;
+    `
+    // Executa a instrução SQL usando a função 'executar' do objeto 'database' e retorna o resultado. (27/06)
     return database.executar(instrucaoSql);
 }
+
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal,
-    enviarJogador,
     buscarEscolhasDosJogadores,
+    enviarJogador,
     enviarQuiz,
-    buscarPosiçao
-};
+    buscarPosicao   
+}
