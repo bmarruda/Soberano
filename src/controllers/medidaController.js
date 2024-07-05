@@ -19,25 +19,22 @@ function buscarUltimasMedidas(req, res) {
     });
 }
 
+// função que recupera as posições mais escolhidas (03/07)
 function enviarJogador(req, res) {
-    var id = req.body.id;
-    var fkJogador = req.body.fkJogador;
+    const limite_linhas = 7;
+    var idJogador = req.params.idJogador;
 
-    medidaModel.enviarJogador(id, fkJogador).then(function (resultado) {
-        res.json(resultado);
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+
+    medidaModel.enviarJogador().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("\nHouve um erro ao enviar o jogador! Erro: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function buscarEscolhasDosJogadores(req, res) {
-    medidaModel.buscarEscolhasDosJogadores().then(function (resultado) {
-        res.status(200).json(resultado);
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as escolhas dos jogadores.", erro.sqlMessage);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
@@ -88,10 +85,14 @@ function buscarPosicao(req, res) {
         // res.status(500).json(erro.sqlMessage); 
     });
 }
+
+
+
+
+
 module.exports = {
     buscarUltimasMedidas,
     enviarQuiz,
     buscarPosicao,
-    enviarJogador,
-    buscarEscolhasDosJogadores,
+    enviarJogador
 }

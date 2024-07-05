@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
     <meta charset="UTF-8">
@@ -21,6 +22,7 @@
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 <!-- <body onload=" atualizarFeed()"> -->
+
 <body>
     <div class="janela">
         <div class="header-left">
@@ -38,8 +40,8 @@
                     <h3>Jogadores</h3>
                 </a>
             </div>
-            
-  <!-- Div que direciona para o quiz 23/06 -->
+
+            <!-- Div que direciona para o quiz 23/06 -->
             <div class="btn-nav-white">
                 <a href="quiz.html">
                     <h3>Quiz</h3>
@@ -54,7 +56,7 @@
             </div>
         </div>
         <div class="dash">
-            
+
             <div id="alerta"></div>
             <div class="graficos">
                 <div class="graph">
@@ -62,30 +64,34 @@
                     <canvas id="myChart" class="graph"></canvas>
                 </div>
 
-                <!-- grafico que vai mostar a procentagem (30/06) -->
+                <!-- gráfico que mostra a procentagem (30/06) -->
                 <div id="alerta"></div>
                 <div class="graficos">
                     <div class="graph">
-                        <h2>Queridinhos dos Usuarios</h2>
+                        <h2>Dados das Posições em campo</h2>
                         <canvas id="procentagem" class="graph"></canvas>
                     </div>
-            </div>
+                </div>
 
-            <!-- <div id="alerta"></div>
+                <!-- <div id="alerta"></div>
             <div class="graficos">
                 <div class="graph">
                     <h2>Queridinhos dos Usuarios</h2>
                     <canvas id="myChart" class="graph"></canvas>
                 </div> -->
+            </div>
         </div>
-    </div>
 </body>
+
 </html>
 <script>
     var resposta;
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     let proximaAtualizacao;
-    window.onload = obterDadosGrafico();
+    window.onload = 
+    obterDadosGrafico();
+    obterDadosPosicao();
+
     function obterDadosGrafico() {
         fetch('/medidas/ultimas', { cache: 'no-store' })
             .then(response => {
@@ -102,6 +108,26 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
+
+      // função é usada para obter dados de posição de jogadores para o segundo grafico (03/07)
+    function obterDadosPosicao() {
+        fetch('/medidas/jogador', { cache: 'no-store' })
+            .then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        resposta = json;
+                        plotarGraficoPosicao();
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(error => {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+        }
+        
+
     function plotarGrafico() {
         var label = [];
         var dados = [];
@@ -132,5 +158,54 @@
         });
     }
 
-    
-</script> 
+// gráfico que mostrar a distribuição das porcentagens de usuários por diferentes posições. (03/07)
+function plotarGraficoPosicao() {
+            var labels = [];
+            var dados = [];
+            resposta.forEach(item => {
+                labels.push(item.posicao);
+                dados.push(item.porcentagem_usuarios);
+            });
+            var ctx = document.getElementById('procentagem').getContext('2d');
+            new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Porcentagem de Usuários',
+                        data: dados,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribuição das Posições'
+                        }
+                    }
+                }
+            });
+        }
+
+</script>

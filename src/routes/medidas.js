@@ -7,7 +7,8 @@ router.get("/ultimas/", function (req, res) {
     medidaController.buscarUltimasMedidas(req, res);
 });
 
-router.post("/jogador/", function (req, res) {
+// rota das posiçoes dos jogadores(03/07)
+router.get("/jogador/", function (req, res) {
     medidaController.enviarJogador(req, res);
 });
 
