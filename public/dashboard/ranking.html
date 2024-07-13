@@ -26,8 +26,8 @@
         <h1>Ranking dos Jogadores</h1>
         <!-- Posicionamentos do ranking -->
         <div id="first" class="position">1º Lugar: <span id="first_name" class="name">Nome 1</span></div>
-        <div id="second" class="position">2º Lugar: <span class="name">Nome 2</span></div>
-        <div id="third" class="position">3º Lugar: <span class="name">Nome 3</span></div>
+        <div id="second" class="position">2º Lugar: <span id="second_name" class="name">Nome 2</span></div>
+        <div id="third" class="position">3º Lugar: <span id="third_name"class="name">Nome 3</span></div>
     </div>
    
 </body>
@@ -60,6 +60,8 @@
                     console.log(json);
                     
                     document.getElementById("first_name").innerHTML = json[0].nome;
+                    document.getElementById("second_name").innerHTML = json[1].nome;
+                    document.getElementById("third_name").innerHTML = json[2].nome;
                 
                 });
             } else {
@@ -71,7 +73,6 @@
         });
     }
 </script>
-
 
 
 
