@@ -56,7 +56,7 @@
             <div class="btn-nav">
                 <h3>Dashboard</h3>
             </div>
-            
+
             <div class="btn-logout" onclick="limparSessao()">
                 <h3>Sair</h3>
             </div>
@@ -81,16 +81,14 @@
             </div>
         </div>
 </body>
-<!-- adiciona o plugin chartjs-plugin-datalabels ao projeto, permitindo mostrar rótulos de dados diretamente nos gráficos criados com Chart.js. Este plugin facilita a visualização de informações, como porcentagens, diretamente nas seções dos gráficos. (13/07)-->
 
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </html>
 <script>
     var resposta;
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     let proximaAtualizacao;
-    window.onload = 
-    obterDadosGrafico();
+    window.onload =
+        obterDadosGrafico();
     obterDadosPosicao();
 
     function obterDadosGrafico() {
@@ -110,7 +108,7 @@
             });
     }
 
-      // função é usada para obter dados de posição de jogadores para o segundo grafico (03/07)
+    // função é usada para obter dados de posição de jogadores para o segundo grafico (03/07)
     function obterDadosPosicao() {
         fetch('/medidas/jogador', { cache: 'no-store' })
             .then(response => {
@@ -126,8 +124,8 @@
             .catch(error => {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-        }
-        
+    }
+
 
     function plotarGrafico() {
         var label = [];
@@ -159,71 +157,61 @@
         });
     }
 
-// gráfico que mostrar a distribuição das porcentagens de usuários por diferentes posições. (03/07)
-function plotarGraficoPosicao() {
-    var labels = [];
-    var dados = [];
-    resposta.forEach(item => {
-        labels.push(item.posicao);
-        dados.push(item.porcentagem_usuarios);
-    });
-    var ctx = document.getElementById('procentagem').getContext('2d');
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Porcentagem de Usuários',
-                data: dados,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Distribuição das Posições'
-                },
-                // Este trecho de código faz parte da configuração de um gráfico que utiliza o plugin chartjs-plugin-datalabels. 
-                // Este plugin adiciona rótulos de dados diretamente nos gráficos feitos com Chart.js. (13/07)
-                datalabels: {
-                    formatter: (value, context) => {
-                        return value + '%';
+    // gráfico que mostrar a distribuição das porcentagens de usuários por diferentes posições. (03/07)
+    function plotarGraficoPosicao() {
+        var labels = [];
+        var dados = [];
+        resposta.forEach(item => {
+            labels.push(item.posicao);
+            dados.push(item.porcentagem_usuarios);
+        });
+        var ctx = document.getElementById('procentagem').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Porcentagem de Usuários',
+                    data: dados,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top', // Posição da legenda 14/07
                     },
-                    color: '#ffff',
-                    anchor: 'end',
-                    align: 'start',
-                    offset: -10,
-                    font: {
-                        weight: 'bold',
-                        size: 14
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                // Formata o tooltip para mostrar a porcentagem 14/07
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
                     }
                 }
-            }
-        },
-        plugins: [ChartDataLabels],
-    });
-}
+            },
+
+
+        });
+    }
 
 
 </script>
